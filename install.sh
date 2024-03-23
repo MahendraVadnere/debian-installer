@@ -6,8 +6,8 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-username=$(id -u -n 1000)
-builddir=$(pwd)
+#username=$(id -u -n 1000)
+#builddir=$(pwd)
 
 # Update packages list and update system
 apt update
@@ -17,36 +17,30 @@ apt upgrade -y
 apt install nala -y
 
 # Create folders in user directory (eg. Documents,Downloads,etc.)
+cd
 xdg-user-dirs-update
 
 # Installing Essential Programs 
-nala install i3lock xclip qt5-style-plugins materia-gtk-theme exa feh thunar stow policykit-1-gnome x11-xserver-utils unzip wget pipewire wireplumber pavucontrol evince sxhkd -y
-# Installing Other less important Programs
-nala install flameshot psmisc mangohud lxappearance -y
+nala install i3lock xclip qt5-style-plugins dmenu materia-gtk-theme exa feh thunar stow policykit-1-gnome unzip wget -y
 
-# Installing Essential Programs 
-nala install xorg xserver-xorg libx11-dev libxinerama-dev libxft-dev libxcb1-dev libx11-xcb-dev libxcb-res0-dev xcb libxcb-xkb-dev x11-xkb-utils libxkbcommon-x11-dev build-essential gcc make -y
+# Installing Other less important Programs
+nala install flameshot psmisc mangohud lxappearance evince -y
+
+# Installing Essential Programs for xorg and DWM
+nala install xorg xserver-xorg x11-xserver-utils xorg-dev libx11-dev libxinerama-dev libxft-dev libxcb1-dev libx11-xcb-dev libxcb-res0-dev xcb libxcb-xkb-dev x11-xkb-utils libxkbcommon-x11-dev build-essential gcc make -y
 
 # Installing zsh and dependencies
 nala install zsh-syntax-highlighting autojump zsh-autosuggestions
 
-# Download Nordic Theme
-cd /usr/share/themes/
-git clone https://github.com/EliverLara/Nordic.git
-cd $builddir 
-# Enable wireplumber audio service
-sudo -u $username systemctl --user enable wireplumber.service
-
 # xorg display server installation
-nala install xbacklight xvkbd xinput xorg-dev redshift -y
-
+nala install xbacklight xvkbd xinput sxhkd redshift -y
 
 # Microcode for Intel/AMD 
 # sudo apt install -y amd64-microcode
 nala install intel-microcode -y
 
 # Network Manager
-nala install network-manager network-manager-gnome -y
+nala install network-manager-gnome -y
 
 # Network File Tools/System Events
 nala install dialog mtools dosfstools avahi-daemon acpi acpid gvfs-backends -y
@@ -58,10 +52,13 @@ sudo systemctl enable acpid
 nala install terminator alacritty -y
 
 # Sound packages
-nala install pulseaudio alsa-utils pavucontrol volumeicon-alsa pnmixer pamixer -y
+nala install pipewire wireplumber pulseaudio alsa-utils pavucontrol volumeicon-alsa pnmixer pamixer -y
+
+# Enable wireplumber audio service
+sudo -u $username systemctl --user enable wireplumber.service
 
 # Neofetch/HTOP
-nala install neofetch htop btop -y
+nala install neofetch htop btop bat -y
 
 # Browser Installation (Brave)
 nala install curl -y
@@ -70,7 +67,7 @@ sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://b
 
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
-nala update -y
+nala update
 
 nala install brave-browser -y
 
@@ -78,12 +75,12 @@ nala install brave-browser -y
 # Packages needed dwm after installation
 nala install picom numlockx rofi dunst libnotify-bin -y
 
-# Command line text editor -- nano preinstalled  -- I like micro but vim is great
+# Command line text editor
 nala install micro -y
 # sudo apt install -y neovim
 
 # Install fonts
-nala install fonts-font-awesome fonts-ubuntu fonts-liberation2 fonts-liberation fonts-terminus fonts-noto-color-emoji -y
+nala install fonts-font-awesome fonts-liberation2 fonts-liberation fonts-terminus fonts-roboto fonts-noto-color-emoji -y
 
 # Reloading Font
 fc-cache -vf
@@ -97,19 +94,24 @@ sudo systemctl enable lightdm
 systemctl set-default graphical.target
 
 # DWM Setup
-mkdir -p /home/$username/repos
-cd ~/repos
+mkdir -p $HOME/repos
+cd $HOME/repos
 git clone https://github.com/MahendraVadnere/dwm
-cd /home/$username/repos/dwm
+cd $HOME/repos/dwm
 make clean install
 cp dwm.desktop /usr/share/xsessions
-cd $builddir
+cd
 
 # ditfiles management using stow
 git clone https://github.com/MahendraVadnere/dotfiles
 cd dotfiles
 stow .
-cd $builddir
+cd
+
+# Download Nordic Theme
+cd /usr/share/themes/
+git clone https://github.com/EliverLara/Nordic.git
+cd
 
 sudo apt autoremove
 
