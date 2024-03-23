@@ -1,5 +1,9 @@
 # debian-installer
 
+* Debian customizations
+
+Assuming you have already installed a minimal Debian 12 install. The shell script is intended to facilitate installing DWM window manager and necessary programs.
+
 * To install
 
 ```
