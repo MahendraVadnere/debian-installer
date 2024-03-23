@@ -105,6 +105,12 @@ make clean install
 cp dwm.desktop /usr/share/xsessions
 cd $builddir
 
+# ditfiles management using stow
+git clone https://github.com/MahendraVadnere/dotfiles
+cd dotfiles
+stow .
+cd $builddir
+
 sudo apt autoremove
 
 printf "\e[1;32mDone! you can now reboot.\e[0m\n"
