@@ -19,79 +19,88 @@ apt install nala -y
 # Create folders in user directory (eg. Documents,Downloads,etc.)
 xdg-user-dirs-update
 
-chown -R $username:$username /home/$username
-
 # Installing Essential Programs 
-nala install feh rofi picom thunar lxpolkit x11-xserver-utils unzip wget pipewire wireplumber pavucontrol sxhkd -y
+nala install i3lock xclip qt5-style-plugins materia-gtk-theme exa feh thunar stow policykit-1-gnome x11-xserver-utils unzip wget pipewire wireplumber pavucontrol evince sxhkd -y
 # Installing Other less important Programs
-nala install flameshot psmisc mangohud lxappearance fonts-noto-color-emoji -y
+nala install flameshot psmisc mangohud lxappearance -y
 
 # Installing Essential Programs 
-nala install xorg xserver-xorg libx11-dev libxinerama-dev libxft-dev libxcb1-dev libx11-xcb-dev libxcb-res0-dev xcb libxcb-xkb-dev x11-xkb-utils libxkbcommon-x11-dev build-essential gcc make
+nala install xorg xserver-xorg libx11-dev libxinerama-dev libxft-dev libxcb1-dev libx11-xcb-dev libxcb-res0-dev xcb libxcb-xkb-dev x11-xkb-utils libxkbcommon-x11-dev build-essential gcc make -y
+
+# Installing zsh and dependencies
+nala install zsh-syntax-highlighting autojump zsh-autosuggestions
 
 # Download Nordic Theme
 cd /usr/share/themes/
 git clone https://github.com/EliverLara/Nordic.git
-
+cd $builddir 
 # Enable wireplumber audio service
 sudo -u $username systemctl --user enable wireplumber.service
 
 # xorg display server installation
-sudo apt install -y xorg xbacklight xvkbd xinput xorg-dev
+nala install xbacklight xvkbd xinput xorg-dev redshift -y
 
 
 # Microcode for Intel/AMD 
 # sudo apt install -y amd64-microcode
-sudo apt install -y intel-microcode 
+nala install intel-microcode -y
 
 # Network Manager
-sudo apt install -y network-manager-gnome
+nala install network-manager network-manager-gnome -y
 
 # Network File Tools/System Events
-sudo apt install -y dialog mtools dosfstools avahi-daemon acpi acpid gvfs-backends 
+nala install dialog mtools dosfstools avahi-daemon acpi acpid gvfs-backends -y
 
 sudo systemctl enable avahi-daemon
 sudo systemctl enable acpid
 
 # Terminal (eg. terminator,kitty)
-sudo apt install -y terminator
+nala install terminator alacritty -y
 
 # Sound packages
-sudo apt install -y pulseaudio alsa-utils pavucontrol volumeicon-alsa pnmixer
+nala install pulseaudio alsa-utils pavucontrol volumeicon-alsa pnmixer pamixer -y
 
 # Neofetch/HTOP
-sudo apt install -y neofetch htop btop
+nala install neofetch htop btop -y
 
-# Browser Installation (eg. chromium)
-sudo apt install -y firefox-esr 
+# Browser Installation (Brave)
+nala install curl -y
+
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
+nala update -y
+
+nala install brave-browser -y
+
 
 # Packages needed dwm after installation
-sudo apt install -y picom numlockx rofi dunst libnotify-bin
+nala install picom numlockx rofi dunst libnotify-bin -y
 
 # Command line text editor -- nano preinstalled  -- I like micro but vim is great
-sudo apt install -y micro
+nala install micro -y
 # sudo apt install -y neovim
 
 # Install fonts
-sudo apt install fonts-font-awesome fonts-ubuntu fonts-liberation2 fonts-liberation fonts-terminus 
+nala install fonts-font-awesome fonts-ubuntu fonts-liberation2 fonts-liberation fonts-terminus fonts-noto-color-emoji -y
 
 # Reloading Font
 fc-cache -vf
 
 # Install Lightdm Console Display Manager
-sudo apt install -y lightdm lightdm-gtk-greeter-settings slick-greeter
+sudo apt install lightdm lightdm-gtk-greeter-settings slick-greeter -y
 sudo systemctl enable lightdm
-echo 'greeter-session=slick-greeter' >>  sudo tee -a /etc/lightdm/lightdm.conf
-echo 'greeter-hide-user=false' >>  sudo tee -a /etc/lightdm/lightdm.conf
+#echo 'greeter-session=slick-greeter' >>  sudo tee -a /etc/lightdm/lightdm.conf
+#echo 'greeter-hide-user=false' >>  sudo tee -a /etc/lightdm/lightdm.conf
 
 systemctl set-default graphical.target
 
 # DWM Setup
+mkdir -p /home/$username/repos
+cd ~/repos
 git clone https://github.com/MahendraVadnere/dwm
-cd $builddir
-mkdir -p /home/$username/.config/suckless
-mv dwm /home/$username/.config/suckless
-cd /home/$username/.config/suckless/dwm
+cd /home/$username/repos/dwm
 make clean install
 cp dwm.desktop /usr/share/xsessions
 cd $builddir
