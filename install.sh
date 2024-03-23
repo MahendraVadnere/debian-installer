@@ -21,7 +21,7 @@ cd
 xdg-user-dirs-update
 
 # Installing Essential Programs 
-nala install i3lock xclip qt5-style-plugins dmenu materia-gtk-theme exa feh thunar stow policykit-1-gnome unzip wget -y
+nala install i3lock xclip qt5-style-plugins dmenu materia-gtk-theme exa feh stow policykit-1-gnome unzip wget -y
 
 # Installing Other less important Programs
 nala install flameshot psmisc mangohud lxappearance evince -y
@@ -59,6 +59,9 @@ sudo -u $username systemctl --user enable wireplumber.service
 
 # Neofetch/HTOP
 nala install neofetch htop btop bat -y
+
+# File Manager
+nala install thunar thunar-archive-plugin thunar-volman
 
 # Browser Installation (Brave)
 nala install curl -y
@@ -103,6 +106,8 @@ cp dwm.desktop /usr/share/xsessions
 cd
 
 # ditfiles management using stow
+rm -f .bashrc
+rm -f .zshrc
 git clone https://github.com/MahendraVadnere/dotfiles
 cd dotfiles
 stow .
