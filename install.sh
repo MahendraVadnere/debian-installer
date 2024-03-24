@@ -20,6 +20,7 @@ apt install nala -y
 cd
 xdg-user-dirs-update
 
+# Move wallpaper to Pictures directory
 cp $HOME/dwmdebian-installer/current-wallpaper.png $HOME/Pictures
 
 # Installing Essential Programs 
