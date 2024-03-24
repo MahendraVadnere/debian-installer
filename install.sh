@@ -21,7 +21,8 @@ cd
 xdg-user-dirs-update
 
 # Move wallpaper to Pictures directory
-cp $HOME/debian-installer/current-wallpaper.png $HOME/Pictures
+mkdir -p $HOME/Pictures/wallpapers
+cp $HOME/debian-installer/bg.png $HOME/Pictures/wallpapers
 
 # Installing Essential Programs 
 nala install i3lock xclip qt5-style-plugins dmenu materia-gtk-theme exa feh stow policykit-1-gnome unzip wget -y
