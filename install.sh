@@ -33,7 +33,7 @@ nala install flameshot psmisc mangohud lxappearance evince -y
 nala install xorg xserver-xorg x11-xserver-utils xorg-dev libx11-dev libxinerama-dev libxft-dev libxcb1-dev libx11-xcb-dev libxcb-res0-dev xcb libxcb-xkb-dev x11-xkb-utils libxkbcommon-x11-dev build-essential gcc make -y
 
 # Installing zsh and dependencies
-nala install zsh-syntax-highlighting autojump zsh-autosuggestions
+nala install zsh-syntax-highlighting autojump zsh-autosuggestions -y
 
 # xorg display server installation
 nala install xbacklight xvkbd xinput sxhkd redshift -y
