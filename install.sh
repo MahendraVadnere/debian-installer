@@ -20,9 +20,12 @@ apt install nala -y
 cd
 xdg-user-dirs-update
 
+# Give user ownership and permissions over their home directory
+chown -R $username:$username /home/$username
+
 # Move wallpaper to Pictures directory
 mkdir -p $HOME/Pictures/wallpapers
-cp $HOME/debian-installer/bg.png $HOME/Pictures/wallpapers
+cp $HOME/debian-installer/bg.png $HOME/Pictures/wallpapers/
 
 # Installing Essential Programs for xorg and DWM
 nala install xorg xserver-xorg x11-xserver-utils xorg-dev -y
