@@ -67,7 +67,7 @@ nala install pipewire wireplumber pulseaudio alsa-utils pavucontrol volumeicon-a
 sudo -u $username systemctl --user enable wireplumber.service
 
 # Neofetch/HTOP
-nala install neofetch htop btop bat -y
+nala install neofetch htop btop bat conky-all -y
 
 # File Manager
 nala install thunar thunar-archive-plugin thunar-volman -y
