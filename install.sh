@@ -107,7 +107,7 @@ systemctl set-default graphical.target
 
 # DWM Setup
 mkdir -p $HOME/repos
-cd $HOME/repos
+cd $HOME/repos/
 git clone https://github.com/MahendraVadnere/dwm
 cd $HOME/repos/dwm
 make clean install
@@ -118,7 +118,7 @@ cd
 git clone https://github.com/MahendraVadnere/dotfiles
 rm -f .bashrc
 rm -f .zshrc
-cd dotfiles
+cd $HOME/dotfiles/
 stow .
 cd
 
