@@ -64,7 +64,7 @@ sudo -u $username systemctl --user enable wireplumber.service
 nala install neofetch htop btop bat -y
 
 # File Manager
-nala install thunar thunar-archive-plugin thunar-volman
+nala install thunar thunar-archive-plugin thunar-volman -y
 
 # Browser Installation (Brave)
 nala install curl -y
