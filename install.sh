@@ -82,7 +82,7 @@ nala install brave-browser -y
 nala install picom numlockx rofi dunst libnotify-bin -y
 
 # Command line text editor
-nala install micro -y
+nala install micro geany -y
 # sudo apt install -y neovim
 
 # Install fonts
@@ -109,9 +109,9 @@ cp dwm.desktop /usr/share/xsessions
 cd
 
 # ditfiles management using stow
+git clone https://github.com/MahendraVadnere/dotfiles
 rm -f .bashrc
 rm -f .zshrc
-git clone https://github.com/MahendraVadnere/dotfiles
 cd dotfiles
 stow .
 cd
