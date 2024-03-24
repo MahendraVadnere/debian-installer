@@ -20,6 +20,8 @@ apt install nala -y
 cd
 xdg-user-dirs-update
 
+cp $HOME/dwmdebian-installer/current-wallpaper.png $HOME/Pictures
+
 # Installing Essential Programs 
 nala install i3lock xclip qt5-style-plugins dmenu materia-gtk-theme exa feh stow policykit-1-gnome unzip wget -y
 
