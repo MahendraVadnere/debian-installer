@@ -6,8 +6,8 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-#username=$(id -u -n 1000)
-#builddir=$(pwd)
+username=$(id -u -n 1000)
+builddir=$(pwd)
 
 # Update packages list and update system
 apt update
