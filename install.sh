@@ -70,10 +70,12 @@ systemctl set-default graphical.target
 
 # Sound packages
 #nala install pipewire wireplumber pavucontrol pnmixer -y
-nala install pulseaudio alsa-utils pnmixer pamixer -y
+#nala install pulseaudio alsa-utils pnmixer pamixer -y
+nala install pipewire pipewire-audio-client-libraries pulseaudio-utils pipewire-audio wireplumber pipewire-pulse pipewire-alsa pnmixer pamixer -y
 
 # Enable wireplumber audio service
 #sudo -u $username systemctl --user enable wireplumber.service
+systemctl --user --now enable wireplumber.service
 
 # Neofetch/HTOP
 nala install neofetch htop btop bat conky-all -y
