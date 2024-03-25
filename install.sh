@@ -17,7 +17,7 @@ apt upgrade -y
 apt install nala -y
 
 # Create folders in user directory (eg. Documents,Downloads,etc.)
-cd
+
 xdg-user-dirs-update
 
 # Give user ownership and permissions over their home directory
