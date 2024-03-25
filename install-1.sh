@@ -6,30 +6,30 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-cd
-mkdir -p /home/$username/
 username=$(id -u -n 1000)
 builddir=$(pwd)
 
+# Move wallpaper to Pictures directory
 mkdir -p /home/$username/Pictures/wallpapers
-cp ~/debian-installer/bg.png ~/Pictures/wallpapers/
-
+cp /home/$username/debian-installer/bg.png /home/$username/Pictures/wallpapers/
 
 # DWM Setup
 mkdir -p /home/$username/repos
 cd /home/$username/repos/
 git clone https://github.com/MahendraVadnere/dwm
 cd /home/$username/repos/dwm
-make clean install
-cp dwm.desktop /usr/share/xsessions
-cd
+cd $builddir
 
 # ditfiles management using stow
+cd /home/$username/
 git clone https://github.com/MahendraVadnere/dotfiles
+cd $builddir
 
 # Download Nordic Theme
 cd /usr/share/themes/
 git clone https://github.com/EliverLara/Nordic.git
-cd
+cd $builddir
+
+sudo apt autoremove
 
 printf "\e[1;32mDone! you can now reboot.\e[0m\n"

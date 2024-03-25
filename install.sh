@@ -21,11 +21,11 @@ apt install nala -y
 xdg-user-dirs-update
 
 # Give user ownership and permissions over their home directory
-chown -R $username:$username /home/$username
+#chown -R $username:$username /home/$username
 
 # Move wallpaper to Pictures directory
-mkdir -p $HOME/Pictures/wallpapers
-cp $HOME/debian-installer/bg.png $HOME/Pictures/wallpapers/
+mkdir -p /home/$username/Pictures/wallpapers
+cp /home/$username/debian-installer/bg.png /home/$username/Pictures/wallpapers/
 
 # Installing Essential Programs for xorg and DWM
 nala install xorg xserver-xorg x11-xserver-utils xorg-dev -y
@@ -74,15 +74,10 @@ nala install thunar thunar-archive-plugin thunar-volman -y
 
 # Browser Installation (Brave)
 nala install curl -y
-
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-
 nala update
-
 nala install brave-browser -y
-
 
 # Packages needed dwm after installation
 nala install picom numlockx rofi dunst libnotify-bin -y
@@ -92,7 +87,7 @@ nala install micro geany -y
 # sudo apt install -y neovim
 
 # Install fonts
-nala install fonts-font-awesome fonts-liberation2 fonts-liberation fonts-terminus fonts-roboto fonts-noto-color-emoji -y
+nala install fonts-font-awesome fonts-terminus fonts-roboto fonts-noto-color-emoji -y
 
 # Reloading Font
 fc-cache -vf
@@ -106,26 +101,27 @@ sudo systemctl enable lightdm
 systemctl set-default graphical.target
 
 # DWM Setup
-mkdir -p $HOME/repos
-cd $HOME/repos/
+mkdir -p /home/$username/repos
+cd /home/$username/repos/
 git clone https://github.com/MahendraVadnere/dwm
-cd $HOME/repos/dwm
+cd /home/$username/repos/dwm
 make clean install
 cp dwm.desktop /usr/share/xsessions
-cd
+cd $builddir
 
 # ditfiles management using stow
+cd /home/$username/
 git clone https://github.com/MahendraVadnere/dotfiles
 rm -f .bashrc
 rm -f .zshrc
-cd $HOME/dotfiles/
+cd /home/$username/dotfiles/
 stow .
-cd
+cd $builddir
 
 # Download Nordic Theme
 cd /usr/share/themes/
 git clone https://github.com/EliverLara/Nordic.git
-cd
+cd $builddir
 
 sudo apt autoremove
 
