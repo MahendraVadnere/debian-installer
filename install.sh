@@ -69,11 +69,11 @@ sudo systemctl enable lightdm
 systemctl set-default graphical.target
 
 # Sound packages
-nala install pipewire wireplumber pavucontrol pnmixer -y
-#nala install pulseaudio alsa-utils volumeicon-alsa pamixer -y
+#nala install pipewire wireplumber pavucontrol pnmixer -y
+nala install pulseaudio alsa-utils pnmixer pamixer -y
 
 # Enable wireplumber audio service
-sudo -u $username systemctl --user enable wireplumber.service
+#sudo -u $username systemctl --user enable wireplumber.service
 
 # Neofetch/HTOP
 nala install neofetch htop btop bat conky-all -y
