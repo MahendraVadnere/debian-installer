@@ -7,19 +7,19 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 cd
-
+mkdir -p /home/$username/
 username=$(id -u -n 1000)
 builddir=$(pwd)
 
-mkdir -p ~/Pictures/wallpapers
+mkdir -p /home/$username/Pictures/wallpapers
 cp ~/debian-installer/bg.png ~/Pictures/wallpapers/
 
 
 # DWM Setup
-mkdir -p ~/repos
-cd ~/repos/
+mkdir -p /home/$username/repos
+cd /home/$username/repos/
 git clone https://github.com/MahendraVadnere/dwm
-cd ~/repos/dwm
+cd /home/$username/repos/dwm
 make clean install
 cp dwm.desktop /usr/share/xsessions
 cd
