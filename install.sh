@@ -60,8 +60,17 @@ sudo systemctl enable acpid
 # Terminal (eg. terminator,kitty)
 nala install terminator alacritty -y
 
+# Install Lightdm Console Display Manager
+sudo apt install lightdm lightdm-gtk-greeter-settings slick-greeter -y
+sudo systemctl enable lightdm
+#echo 'greeter-session=slick-greeter' >>  sudo tee -a /etc/lightdm/lightdm.conf
+#echo 'greeter-hide-user=false' >>  sudo tee -a /etc/lightdm/lightdm.conf
+
+systemctl set-default graphical.target
+
 # Sound packages
-nala install pipewire wireplumber pulseaudio alsa-utils pavucontrol volumeicon-alsa pnmixer pamixer -y
+nala install pipewire wireplumber pavucontrol pnmixer -y
+#nala install pulseaudio alsa-utils volumeicon-alsa pamixer -y
 
 # Enable wireplumber audio service
 sudo -u $username systemctl --user enable wireplumber.service
@@ -91,14 +100,6 @@ nala install fonts-font-awesome fonts-terminus fonts-roboto fonts-noto-color-emo
 
 # Reloading Font
 fc-cache -vf
-
-# Install Lightdm Console Display Manager
-sudo apt install lightdm lightdm-gtk-greeter-settings slick-greeter -y
-sudo systemctl enable lightdm
-#echo 'greeter-session=slick-greeter' >>  sudo tee -a /etc/lightdm/lightdm.conf
-#echo 'greeter-hide-user=false' >>  sudo tee -a /etc/lightdm/lightdm.conf
-
-systemctl set-default graphical.target
 
 # DWM Setup
 mkdir -p /home/$username/repos
